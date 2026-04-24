@@ -21,8 +21,8 @@
   --font-body: var(--font-inter);
   --font-mono: var(--font-geist-mono);
   --font-pangram: var(--font-pp-pangram);
-  --font-mori: var(--font-pp-mori)
-    /* ---------------------------------------------------------------
+  --font-mori: var(--font-pp-mori);
+  /* ---------------------------------------------------------------
      Typography — Font Size Scale (from Figma)
 
      Display sizes use PP Mori Variable (font-display).
