@@ -1,0 +1,52 @@
+{
+  "name": "client",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint src/",
+    "lint:fix": "eslint src/ --fix",
+    "ts": "tsc --noEmit",
+    "fmt": "prettier --check \"src/**/*.{ts,tsx,css,json}\"",
+    "fmt:fix": "prettier --write \"src/**/*.{ts,tsx,css,json}\""
+  },
+  "dependencies": {
+    "@hugeicons/core-free-icons": "^4.1.1",
+    "@hugeicons/react": "^1.1.6",
+    "@iconify/react": "^6.0.2",
+    "@splidejs/react-splide": "^0.7.12",
+    "axios": "^1.15.0",
+    "clsx": "^2.1.1",
+    "dayjs": "^1.11.20",
+    "gsap": "^3.14.2",
+    "lottie-react": "^2.4.1",
+    "next": "16.2.3",
+    "next-transition-router": "^0.2.11",
+    "react": "19.2.4",
+    "react-dom": "19.2.4",
+    "tailwind-merge": "^3.5.0",
+    "zustand": "^5.0.12"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "eslint": "^9",
+    "eslint-config-next": "16.2.3",
+    "eslint-config-prettier": "^10.1.8",
+    "prettier": "^3.8.1",
+    "tailwindcss": "^4",
+    "typescript": "^5"
+  },
+  "ignoreScripts": [
+    "sharp",
+    "unrs-resolver"
+  ],
+  "trustedDependencies": [
+    "sharp",
+    "unrs-resolver"
+  ]
+}

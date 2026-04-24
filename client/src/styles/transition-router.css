@@ -1,0 +1,20 @@
+.page__transition {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(1.5);
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 100;
+}
+
+.page__transition-svg {
+  width: 100%;
+  height: 100%;
+}
+
+.page__transition path {
+  stroke-dashoffset: 99999;
+  stroke-dasharray: 99999;
+}

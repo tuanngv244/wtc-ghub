@@ -1,0 +1,17 @@
+# Place PP Mori Variable and PP Pangram Sans Rounded font files here.
+#
+# Expected font files:
+#
+# PP Mori Variable (Display font):
+#   PPMori-Regular.woff2        (weight: 400)
+#   PPMori-Medium.woff2         (weight: 500)
+#   PPMori-SemiBold.woff2       (weight: 600)
+#   PPMori-Bold.woff2           (weight: 700)
+#
+# PP Pangram Sans Rounded (Body font):
+#   PPPangramSansRounded-Medium.woff2        (weight: 500)
+#   PPPangramSansRounded-Bold.woff2          (weight: 700)
+#   PPPangramSansRounded-MediumItalic.woff2  (weight: 500, italic)
+#
+# After adding font files, uncomment the localFont definitions
+# in src/app/fonts.ts and update src/app/layout.tsx.

@@ -1,0 +1,10 @@
+export { HomeIcon } from "./home";
+export { ActionIcon } from "./action";
+export { FamilyIcon } from "./family";
+export { CoopIcon } from "./coop";
+export { PuzzleIcon } from "./puzzle";
+export { StrategyIcon } from "./strategy";
+export { SoloIcon } from "./solo";
+export { BoardgameIcon } from "./boardgame";
+export { OthersIcon } from "./others";
+export { PartyIcon } from "./party";

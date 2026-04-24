@@ -1,0 +1,43 @@
+.box-slider {
+  .splide__slide {
+    pointer-events: auto;
+  }
+
+  .splide__track {
+    overflow: unset !important;
+  }
+  .splide__track,
+  .splide__list {
+    pointer-events: auto;
+  }
+}
+
+.provider-game-slider {
+  .splide__slide {
+    pointer-events: auto;
+  }
+
+  .splide__track {
+    overflow: unset !important;
+  }
+
+  /* .splide__track, */
+  .splide__list {
+    pointer-events: auto;
+    padding-top: 0.5rem !important;
+    padding-bottom: 0.5rem !important;
+  }
+}
+
+.top-players-slider {
+  .splide__slide {
+    pointer-events: auto;
+  }
+
+  .splide__track {
+  }
+  .splide__list {
+    pointer-events: auto;
+    padding-bottom: 1.25rem !important;
+  }
+}

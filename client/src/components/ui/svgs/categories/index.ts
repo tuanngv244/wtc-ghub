@@ -1,0 +1,10 @@
+export { ActionCategoryIcon } from './action-category-icon';
+export { AllCategoryIcon } from './all-category-icon';
+export { BoardgameCategoryIcon } from './boardgame-category-icon';
+export { CoopCategoryIcon } from './coop-category-icon';
+export { FamilyCategoryIcon } from './family-category-icon';
+export { OtherCategoryIcon } from './other-category-icon';
+export { PartyCategoryIcon } from './party-category-icon';
+export { PuzzleCategoryIcon } from './puzzle-category-icon';
+export { SoloCategoryIcon } from './solo-category-icon';
+export { StrategyCategoryIcon } from './strategy-category-icon';

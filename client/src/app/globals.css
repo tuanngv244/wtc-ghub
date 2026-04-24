@@ -1,0 +1,417 @@
+@import "tailwindcss";
+
+/* =================================================================
+   Tailwind CSS v4 — Design Tokens (@theme inline)
+   Source: Figma Design System — Board Game Hub
+   ================================================================= */
+@theme inline {
+  /* ---------------------------------------------------------------
+     Typography — Font Families
+
+     Design system fonts (from Figma):
+       Display: PP Mori Variable        → --font-pp-mori   (headings, titles)
+       Body:    PP Pangram Sans Rounded  → --font-pp-pangram (body, UI text)
+
+     Until local font files are added, we fall back to Inter.
+     When .woff2 files are available, swap the fallbacks:
+       --font-display: var(--font-pp-mori), system-ui, sans-serif;
+       --font-body: var(--font-pp-pangram), var(--font-inter), sans-serif;
+     --------------------------------------------------------------- */
+  --font-display: var(--font-pp-mori), system-ui, sans-serif;
+  --font-body: var(--font-inter);
+  --font-mono: var(--font-geist-mono);
+  --font-pangram: var(--font-pp-pangram);
+  --font-mori: var(--font-pp-mori)
+    /* ---------------------------------------------------------------
+     Typography — Font Size Scale (from Figma)
+
+     Display sizes use PP Mori Variable (font-display).
+     Text sizes use PP Pangram Sans Rounded (font-body).
+     All display sizes use tight letter-spacing (-6%).
+     --------------------------------------------------------------- */
+    /* Display 2xl: 72px / 72px (Bold: 72/80) */ --font-size-display-2xl: 72px;
+  --line-height-display-2xl: 72px;
+  --letter-spacing-display: -0.06em;
+
+  /* Display xl: 60px / 72px */
+  --font-size-display-xl: 60px;
+  --line-height-display-xl: 72px;
+
+  /* Display lg: 48px / 60px */
+  --font-size-display-lg: 48px;
+  --line-height-display-lg: 60px;
+
+  /* Display md: 36px / 44px */
+  --font-size-display-md: 36px;
+  --line-height-display-md: 44px;
+
+  /* Display sm: 30px / 38px */
+  --font-size-display-sm: 30px;
+  --line-height-display-sm: 38px;
+
+  /* Display xs: 24px / 32px (Bold: 24/28) */
+  --font-size-display-xs: 24px;
+  --line-height-display-xs: 32px;
+
+  /* =================================================================
+     Color Palette — From Figma Design System
+     ================================================================= */
+
+  /* ---------------------------------------------------------------
+     Light-Green
+     --------------------------------------------------------------- */
+  --color-light-green-50: #f5fdf7;
+  --color-light-green-100: #dff8e5;
+  --color-light-green-200: #d0f5d8;
+  --color-light-green-300: #baf0c7;
+  --color-light-green-400: #adedbc;
+  --color-light-green-500: #98e9ab;
+  --color-light-green-600: #8ad49c;
+  --color-light-green-700: #6ca579;
+  --color-light-green-800: #54805e;
+  --color-light-green-900: #406248;
+
+  /* ---------------------------------------------------------------
+     Green
+     --------------------------------------------------------------- */
+  --color-green-50: #e6f9ee;
+  --color-green-100: #b3eccb;
+  --color-green-200: #8ee3b2;
+  --color-green-300: #5ad78f;
+  --color-green-400: #3acf79;
+  --color-green-500: #09c358;
+  --color-green-600: #08b150;
+  --color-green-700: #068a3e;
+  --color-green-800: #056b30;
+  --color-green-900: #045225;
+
+  /* ---------------------------------------------------------------
+     Light-Yellow
+     --------------------------------------------------------------- */
+  --color-light-yellow-50: #fffdf6;
+  --color-light-yellow-100: #fdf8e3;
+  --color-light-yellow-200: #fdf4d5;
+  --color-light-yellow-300: #fcf0c2;
+  --color-light-yellow-400: #fbedb6;
+  --color-light-yellow-500: #fae8a4;
+  --color-light-yellow-600: #e4d395;
+  --color-light-yellow-700: #b2a574;
+  --color-light-yellow-800: #8a805a;
+  --color-light-yellow-900: #696145;
+
+  /* ---------------------------------------------------------------
+     Sunshine
+     --------------------------------------------------------------- */
+  --color-sunshine-50: #fffff1;
+  --color-sunshine-100: #fefdd5;
+  --color-sunshine-200: #fefdc0;
+  --color-sunshine-300: #fdfca3;
+  --color-sunshine-400: #fdfb91;
+  --color-sunshine-500: #fcfa76;
+  --color-sunshine-600: #e5e46b;
+  --color-sunshine-700: #b3b254;
+  --color-sunshine-800: #8b8a41;
+  --color-sunshine-900: #6a6932;
+
+  /* ---------------------------------------------------------------
+     Wax-Flower
+     --------------------------------------------------------------- */
+  --color-wax-flower-50: #fff9f7;
+  --color-wax-flower-100: #ffebe5;
+  --color-wax-flower-200: #ffe2d8;
+  --color-wax-flower-300: #fed5c6;
+  --color-wax-flower-400: #fecdbb;
+  --color-wax-flower-500: #fec0aa;
+  --color-wax-flower-600: #e7af9b;
+  --color-wax-flower-700: #b48879;
+  --color-wax-flower-800: #8c6a5e;
+  --color-wax-flower-900: #6b5147;
+
+  /* ---------------------------------------------------------------
+     Orange
+     --------------------------------------------------------------- */
+  --color-orange-50: #fef0ec;
+  --color-orange-100: #fcd1c3;
+  --color-orange-200: #fabaa5;
+  --color-orange-300: #f89b7c;
+  --color-orange-400: #f78763;
+  --color-orange-500: #f5693c;
+  --color-orange-600: #df6037;
+  --color-orange-700: #ae4b2b;
+  --color-orange-800: #873a21;
+  --color-orange-900: #672c19;
+
+  /* ---------------------------------------------------------------
+     Pinch
+     --------------------------------------------------------------- */
+  --color-pinch-50: #fdf5f5;
+  --color-pinch-100: #f8dfdf;
+  --color-pinch-200: #f5d0d0;
+  --color-pinch-300: #f0baba;
+  --color-pinch-400: #edadad;
+  --color-pinch-500: #e99898;
+  --color-pinch-600: #d48a8a;
+  --color-pinch-700: #a56c6c;
+  --color-pinch-800: #805454;
+  --color-pinch-900: #624040;
+
+  /* ---------------------------------------------------------------
+     Camelia
+     --------------------------------------------------------------- */
+  --color-camelia-50: #fff2f4;
+  --color-camelia-100: #ffd5dd;
+  --color-camelia-200: #ffc1cc;
+  --color-camelia-300: #fea5b5;
+  --color-camelia-400: #fe93a7;
+  --color-camelia-500: #fe7891;
+  --color-camelia-600: #e76d84;
+  --color-camelia-700: #b45567;
+  --color-camelia-800: #8c4250;
+  --color-camelia-900: #6b323d;
+
+  /* ---------------------------------------------------------------
+     Violet
+     --------------------------------------------------------------- */
+  --color-violet-50: #f3effa;
+  --color-violet-100: #dbceef;
+  --color-violet-200: #cab7e8;
+  --color-violet-300: #b196dd;
+  --color-violet-400: #a281d6;
+  --color-violet-500: #8b62cc;
+  --color-violet-600: #7e59ba;
+  --color-violet-700: #634691;
+  --color-violet-800: #4c3670;
+  --color-violet-900: #3a2956;
+
+  /* ---------------------------------------------------------------
+     Purple
+     --------------------------------------------------------------- */
+  --color-purple-50: #fbf7ff;
+  --color-purple-100: #f3e7ff;
+  --color-purple-200: #eddcff;
+  --color-purple-300: #e5ccfe;
+  --color-purple-400: #e0c2fe;
+  --color-purple-500: #d8b3fe;
+  --color-purple-600: #c5a3e7;
+  --color-purple-700: #997fb4;
+  --color-purple-800: #77628c;
+  --color-purple-900: #5b4b6b;
+
+  /* ---------------------------------------------------------------
+     Blue
+     --------------------------------------------------------------- */
+  --color-blue-50: #eef0fe;
+  --color-blue-100: #cbcffb;
+  --color-blue-200: #b2b8f9;
+  --color-blue-300: #8f98f6;
+  --color-blue-400: #7984f5;
+  --color-blue-500: #5865f2;
+  --color-blue-600: #505cdc;
+  --color-blue-700: #3e48ac;
+  --color-blue-800: #303885;
+  --color-blue-900: #252a66;
+
+  /* ---------------------------------------------------------------
+     Sky-Blue
+     --------------------------------------------------------------- */
+  --color-sky-blue-50: #f8faff;
+  --color-sky-blue-100: #e8f0ff;
+  --color-sky-blue-200: #dde9ff;
+  --color-sky-blue-300: #cddffe;
+  --color-sky-blue-400: #c3d9fe;
+  --color-sky-blue-500: #b4cffe;
+  --color-sky-blue-600: #a4bce7;
+  --color-sky-blue-700: #8093b4;
+  --color-sky-blue-800: #63728c;
+  --color-sky-blue-900: #4c576b;
+
+  /* ---------------------------------------------------------------
+     Grey
+     --------------------------------------------------------------- */
+  --color-grey-50: #eff0f0;
+  --color-grey-100: #cdcfd2;
+  --color-grey-200: #b5b8bc;
+  --color-grey-300: #94979d;
+  --color-grey-400: #7f838a;
+  --color-grey-500: #5f646d;
+  --color-grey-600: #565b63;
+  --color-grey-700: #43474d;
+  --color-grey-800: #34373c;
+  --color-grey-900: #282a2e;
+
+  /* ---------------------------------------------------------------
+     Neutral
+     --------------------------------------------------------------- */
+  --color-neutral-500: #f7fbfc;
+  --color-neutral-600: #e1e4e5;
+  --color-neutral-700: #afb2b3;
+  --color-neutral-800: #888a8b;
+  --color-neutral-900: #68696a;
+
+  /* =================================================================
+     Semantic Colors — Mapped from palette
+     ================================================================= */
+
+  /* ---------------------------------------------------------------
+     Colors — Background
+     --------------------------------------------------------------- */
+  --color-bg-primary: #f5f0ff;
+  --color-bg-card: #ffffff;
+  --color-bg-hover: #ede5f5;
+  --color-bg-sidebar: #282a2e;
+  --color-bg-sidebar-hover: #34373c;
+  --color-bg-sidebar-active: #5865f2;
+  --color-bg-overlay: rgba(0, 0, 0, 0.5);
+
+  /* ---------------------------------------------------------------
+     Colors — Accent
+     --------------------------------------------------------------- */
+  --color-accent-primary: #5865f2;
+  --color-accent-green: #09c358;
+  --color-accent-green-shadow: #068a3e;
+  --color-accent-coral: #fe7891;
+  --color-accent-blue: #b4cffe;
+  --color-accent-blue-shadow: #8093b4;
+  --color-accent-orange: #f5693c;
+  --color-accent-sunshine: #fcfa76;
+  --color-accent-violet: #8b62cc;
+  --color-accent-purple: #d8b3fe;
+
+  /* ---------------------------------------------------------------
+     Colors — Text
+     --------------------------------------------------------------- */
+  --color-text-primary: #282a2e;
+  --color-text-secondary: #5f646d;
+  --color-text-muted: #7f838a;
+  --color-text-inverse: #ffffff;
+  --color-text-sidebar: #afb2b3;
+  --color-text-sidebar-active: #ffffff;
+
+  /* ---------------------------------------------------------------
+     Colors — Border
+     --------------------------------------------------------------- */
+  --color-border-card: #e1e4e5;
+  --color-border-input: #cdcfd2;
+  --color-border-focus: #5865f2;
+
+  /* ---------------------------------------------------------------
+     Colors — Button
+     --------------------------------------------------------------- */
+  --color-btn-primary-bg: #34373c;
+  --color-btn-primary-shadow: #282a2e;
+  --color-btn-secondary-bg: #09c358;
+  --color-btn-secondary-shadow: #068a3e;
+  --color-btn-tertiary-bg: #b4cffe;
+  --color-btn-tertiary-shadow: #8093b4;
+
+  /* ---------------------------------------------------------------
+     Spacing
+     --------------------------------------------------------------- */
+  --spacing-sidebar-collapsed: 80px;
+  --spacing-sidebar-expanded: 270px;
+  --spacing-content-max: 1320px;
+  --spacing-page-padding: 24px;
+  --spacing-section-gap: 32px;
+
+  /* ---------------------------------------------------------------
+     Border Radius
+     --------------------------------------------------------------- */
+  --radius-card: 16px;
+  --radius-button: 12px;
+  --radius-chip: 9999px;
+  --radius-input: 8px;
+  --radius-sidebar-item: 12px;
+
+  /* ---------------------------------------------------------------
+     Shadows
+     --------------------------------------------------------------- */
+  --shadow-card: 0 2px 8px rgba(0, 0, 0, 0.08);
+  --shadow-card-hover: 0 4px 16px rgba(0, 0, 0, 0.12);
+  --shadow-button: 0 2px 4px rgba(0, 0, 0, 0.06);
+
+  /* ---------------------------------------------------------------
+     Transitions
+     --------------------------------------------------------------- */
+  --duration-fast: 150ms;
+  --duration-normal: 300ms;
+  --duration-slow: 500ms;
+}
+
+/* =================================================================
+   Base Styles
+   ================================================================= */
+:root {
+  /* ---------------------------------------------------------------
+   Transition Router
+     --------------------------------------------------------------- */
+  --transition-stroke-1: #ff7891;
+  --transition-stroke-2: #b4cffe;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--color-bg-primary);
+  color: var(--color-text-primary);
+  font-family: var(--font-display), system-ui, sans-serif !important;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-style: normal;
+  font-variation-settings: "ital" 0;
+  /* overflow-x: hidden; */
+}
+
+/* ---------------------------------------------------------------
+   Custom Scrollbar
+   --------------------------------------------------------------- */
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--color-text-muted);
+  border-radius: var(--radius-chip);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: var(--color-text-secondary);
+}
+
+/* ---------------------------------------------------------------
+   Scrollbar Hide (category bar on small screens)
+   --------------------------------------------------------------- */
+
+.scrollbar-hide {
+  scrollbar-width: none; /* Firefox */
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Edge */
+}
+
+/* ---------------------------------------------------------------
+   Reduced Motion
+   --------------------------------------------------------------- */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+@import "../styles/lottie.css";
+@import "../styles/splide.css";
+@import "../styles/transition-router.css";

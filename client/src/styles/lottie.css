@@ -1,0 +1,5 @@
+#loading-screen {
+  g[transform="matrix(1.2295081615447998,0,0,1.2295081615447998,882,820.5245971679688)"] {
+    display: none !important;
+  }
+}

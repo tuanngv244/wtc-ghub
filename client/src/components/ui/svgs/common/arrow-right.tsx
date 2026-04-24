@@ -1,0 +1,29 @@
+interface IconProps {
+  width?: number;
+  height?: number;
+  color?: string;
+  className?: string;
+}
+
+export function ArrowRightIcon({
+  width = 12,
+  height = 14,
+  color = "currentColor",
+  className,
+}: IconProps) {
+  return (
+    <svg
+      width={width}
+      height={height}
+      viewBox="0 0 12 14"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      className={className}
+    >
+      <path
+        fill={color}
+        d="M10.9471 6.30653L6.49532 0.247226C6.38113 0.0917977 6.19978 0 6.00691 0H0.606988C0.119334 0 -0.16863 0.546624 0.107152 0.948805L3.80347 6.33927C4.07822 6.73995 4.08719 7.26597 3.82625 7.67579L0.392566 13.0684C0.135667 13.4719 0.425481 14 0.90379 14H6.33727C6.5371 14 6.72409 13.9015 6.8371 13.7367L10.9699 7.70969C11.2613 7.28467 11.2522 6.72184 10.9471 6.30653Z"
+      />
+    </svg>
+  );
+}
