@@ -41,7 +41,7 @@ import { CountFrame } from "./common/count-frame";
 import { LogoPetSaid } from "./common/logo-pet-said";
 import { SyncIcon } from "./common/sync";
 import { AttachIcon } from "./common/attach";
-import { HeartIcon } from "./common/heart";
+import { HeartIcon } from "./common/Heart";
 import { CloudBottom } from "./common/cloud-bottom";
 import { CloudTop } from "./common/cloud-top";
 import { ThreeDots } from "./common/three-dots";
