@@ -1,17 +1,15 @@
 export const endpoints = {
   games: {
-    list: "/api/games",
-    detail: (slug: string) => `/api/games/${slug}`,
-    featured: "/api/games/featured",
-    topPicked: "/api/games/top-picked",
-    recent: "/api/games/recent",
+    list: "/portal/games",
+    detail: (id: string) => `/games/${id}`,
   },
   categories: {
-    list: "/api/categories",
-    games: (cat: string) => `/api/categories/${cat}/games`,
+    list: "/portal/categories",
   },
-  blog: {
-    list: "/api/blog",
-    detail: (slug: string) => `/api/blog/${slug}`,
+  posts: {
+    list: "/portal/posts",
+  },
+  sections: {
+    list: "/portal/sections",
   },
 } as const;

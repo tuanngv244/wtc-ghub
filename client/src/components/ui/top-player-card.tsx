@@ -5,16 +5,15 @@ import { useRef, useEffect } from "react";
 import gsap from "gsap";
 import { Button } from "./button";
 import { SVG } from "./svgs";
-import { IBlog } from "@/types/blog";
+import type { PostResponse } from "@/types/blog";
 
-export interface TopPlayerCardProps extends IBlog {}
+export interface TopPlayerCardProps extends PostResponse {}
 
 export function TopPlayerCard({
   title,
-  description,
-  imgUrl,
-  category,
-  url,
+  summary,
+  thumbnailUrl,
+  status,
 }: TopPlayerCardProps) {
   const bottomRef = useRef<HTMLDivElement>(null);
   const pinsRef = useRef<HTMLDivElement>(null);
@@ -92,15 +91,15 @@ export function TopPlayerCard({
 
   return (
     <div ref={cardRef} className="flex flex-col">
-      <div className="rounded-[16px] bg-white border border-solid border-grey-900 p-1.5 pb-4 shadow-[6px_6px_0px_0px_rgba(205,207,210,1)]">
+      <div className="rounded-2xl bg-white border border-solid border-grey-900 p-1.5 pb-4 shadow-[6px_6px_0px_0px_rgba(205,207,210,1)]">
         <div className="overflow-hidden aspect-253/142 ">
           <div className="bg-white absolute top-1.2 left-4 border-r border-l border-b rounded-bl-[12px] rounded-br-[12px] border-solid border-grey-900 flex items-center justify-center ">
             <p className=" text-sm leading-4 font-bold text-black py-1 px-2">
-              {category}
+              {status}
             </p>
           </div>
           <img
-            src={imgUrl}
+            src={thumbnailUrl}
             alt={title}
             className="w-full h-full object-cover"
           />
@@ -113,13 +112,13 @@ export function TopPlayerCard({
         {/* pin list */}
         <div
           ref={pinsRef}
-          className="flex items-center justify-center gap-2 absolute -top-[24px] left-1/2 -translate-x-1/2 w-full"
+          className="flex items-center justify-center gap-2 absolute -top-6 left-1/2 -translate-x-1/2 w-full"
         >
           {Array.from({ length: 5 }).map((_, index) => (
             <img
               src="/images/assets/pin.png"
               alt="pin"
-              className="w-[38px] h-[35px]"
+              className="w-9.5 h-8.75"
               key={index}
             />
           ))}
@@ -132,7 +131,7 @@ export function TopPlayerCard({
         <div className="flex items-center justify-end mt-5">
           <Button
             variant="primary"
-            className="group relative w-[120px] hover:w-full duration-300 transition-[width] flex items-center"
+            className="group relative w-30 hover:w-full duration-300 transition-[width] flex items-center"
           >
             Dive in{" "}
             <SVG.ArrowRightV2

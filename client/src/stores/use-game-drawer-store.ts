@@ -1,4 +1,4 @@
-import { IGame } from "@/types/game";
+import type { GameResponse } from "@/types/game";
 import { create } from "zustand";
 
 interface GameDrawerState {
@@ -6,10 +6,10 @@ interface GameDrawerState {
   isOpen: boolean;
 
   /** Currently selected game data */
-  data?: IGame;
+  data?: GameResponse;
 
   /** Open drawer with specific game data */
-  openWithGame: (data: IGame) => void;
+  openWithGame: (data: GameResponse) => void;
 
   /** Close the drawer */
   close: () => void;

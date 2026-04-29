@@ -424,7 +424,7 @@ export function SocialChannel() {
             <img
               src={social.imageUrl}
               alt={social.label}
-              className="social-icon w-16 h-16 sm:w-20 sm:h-20 md:w-[125px] md:h-[125px]"
+              className="social-icon w-16 h-16 sm:w-20 sm:h-20 md:w-31.25 md:h-31.25"
             />
           </Link>
         ))}

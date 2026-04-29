@@ -1,0 +1,1191 @@
+{
+    "openapi": "3.1.0",
+    "info": {
+        "title": "OpenAPI definition",
+        "version": "v0"
+    },
+    "servers": [
+        {
+            "url": "http://192.168.10.47:8080",
+            "description": "Generated server url"
+        }
+    ],
+    "tags": [
+        {
+            "name": "Admin Game",
+            "description": "Backoffice CRUD and image management for games"
+        }
+    ],
+    "paths": {
+        "/admin/games/{id}": {
+            "get": {
+                "tags": [
+                    "Admin Game"
+                ],
+                "summary": "Get record by ID",
+                "operationId": "getById",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiResponseAdminGameResDto"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Admin Game"
+                ],
+                "summary": "Update record by ID",
+                "operationId": "update",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/AdminGameReqDto"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiResponseAdminGameResDto"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Admin Game"
+                ],
+                "summary": "Delete record by ID (soft delete)",
+                "operationId": "delete",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiResponseVoid"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/admin/games": {
+            "get": {
+                "tags": [
+                    "Admin Game"
+                ],
+                "summary": "Get all records with pagination",
+                "operationId": "getAll",
+                "parameters": [
+                    {
+                        "name": "pageNumber",
+                        "in": "query",
+                        "description": "Page number (1-based), default is 1",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int32",
+                            "description": "Page number (1-based), default is 1",
+                            "example": 1
+                        },
+                        "example": 1
+                    },
+                    {
+                        "name": "pageSize",
+                        "in": "query",
+                        "description": "Page size, default is 20",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int32",
+                            "description": "Page size, default is 20",
+                            "example": 10
+                        },
+                        "example": 10
+                    },
+                    {
+                        "name": "sort",
+                        "in": "query",
+                        "description": "Sort query parameters",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "description": "Sort query parameters",
+                            "example": "id:desc"
+                        },
+                        "example": "id:desc"
+                    },
+                    {
+                        "name": "keyword",
+                        "in": "query",
+                        "description": "Search keyword",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "description": "Search keyword"
+                        }
+                    },
+                    {
+                        "name": "keyCol",
+                        "in": "query",
+                        "description": "Search key column",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "description": "Search key column",
+                            "example": "name"
+                        },
+                        "example": "name"
+                    },
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "description": "Filter by game name (partial match)",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "description": "Filter by game name (partial match)",
+                            "example": "Avalon"
+                        },
+                        "example": "Avalon"
+                    },
+                    {
+                        "name": "status",
+                        "in": "query",
+                        "description": "Filter by status",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "description": "Filter by status",
+                            "enum": [
+                                "DRAFT",
+                                "PUBLISHED",
+                                "ARCHIVED"
+                            ],
+                            "example": "PUBLISHED"
+                        },
+                        "example": "PUBLISHED"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiResponsePageResponseAdminGameResDto"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Admin Game"
+                ],
+                "summary": "Create new record",
+                "operationId": "create",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/AdminGameReqDto"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiResponseAdminGameResDto"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/admin/games/{id}/thumbnail": {
+            "post": {
+                "tags": [
+                    "Admin Game"
+                ],
+                "summary": "Upload or replace the game thumbnail",
+                "description": "Multipart upload using field name 'file'. For curl, use -F and do not manually set Content-Type.",
+                "operationId": "uploadThumbnail",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "file": {
+                                        "type": "string",
+                                        "format": "binary",
+                                        "description": "Thumbnail image file"
+                                    }
+                                },
+                                "required": [
+                                    "file"
+                                ]
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiResponseAdminGameResDto"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Admin Game"
+                ],
+                "summary": "Delete the game thumbnail",
+                "operationId": "deleteThumbnail",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiResponseVoid"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/admin/games/{id}/cover": {
+            "post": {
+                "tags": [
+                    "Admin Game"
+                ],
+                "summary": "Upload or replace the game cover image",
+                "description": "Multipart upload using field name 'file'. For curl, use -F and do not manually set Content-Type.",
+                "operationId": "uploadCover",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "file": {
+                                        "type": "string",
+                                        "format": "binary",
+                                        "description": "Cover image file"
+                                    }
+                                },
+                                "required": [
+                                    "file"
+                                ]
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiResponseAdminGameResDto"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Admin Game"
+                ],
+                "summary": "Delete the game cover image",
+                "operationId": "deleteCover",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiResponseVoid"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/sections": {
+            "get": {
+                "tags": [
+                    "section-controller"
+                ],
+                "operationId": "getActiveSections",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiResponseListSectionResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/posts": {
+            "get": {
+                "tags": [
+                    "post-controller"
+                ],
+                "operationId": "getPosts",
+                "parameters": [
+                    {
+                        "name": "categorySlug",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "slug",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiResponseListPostResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/games": {
+            "get": {
+                "tags": [
+                    "game-controller"
+                ],
+                "operationId": "searchGames",
+                "parameters": [
+                    {
+                        "name": "categorySlug",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "search",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "slug",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiResponseListGameResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/games/{id}": {
+            "get": {
+                "tags": [
+                    "game-controller"
+                ],
+                "operationId": "getGameById",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiResponseGameDetailResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/categories": {
+            "get": {
+                "tags": [
+                    "category-controller"
+                ],
+                "operationId": "getCategories",
+                "parameters": [
+                    {
+                        "name": "type",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "slug",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiResponseListCategoryResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "AdminGameReqDto": {
+                "type": "object",
+                "properties": {
+                    "slug": {
+                        "type": "string",
+                        "minLength": 1
+                    },
+                    "name": {
+                        "type": "string",
+                        "minLength": 1
+                    },
+                    "shortDesc": {
+                        "type": "string"
+                    },
+                    "longDesc": {
+                        "type": "string"
+                    },
+                    "thumbnailUrl": {
+                        "type": "string"
+                    },
+                    "coverUrl": {
+                        "type": "string"
+                    },
+                    "playUrl": {
+                        "type": "string"
+                    },
+                    "minPlayers": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "maxPlayers": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "minAge": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "avgDurationMin": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "difficulty": {
+                        "type": "string"
+                    },
+                    "status": {
+                        "type": "string"
+                    },
+                    "publishedAt": {
+                        "type": "string",
+                        "format": "date-time"
+                    }
+                },
+                "required": [
+                    "name",
+                    "slug"
+                ]
+            },
+            "AdminGameResDto": {
+                "type": "object",
+                "properties": {
+                    "slug": {
+                        "type": "string"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "shortDesc": {
+                        "type": "string"
+                    },
+                    "longDesc": {
+                        "type": "string"
+                    },
+                    "thumbnailUrl": {
+                        "type": "string"
+                    },
+                    "coverUrl": {
+                        "type": "string"
+                    },
+                    "playUrl": {
+                        "type": "string"
+                    },
+                    "minPlayers": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "maxPlayers": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "minAge": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "avgDurationMin": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "difficulty": {
+                        "type": "string"
+                    },
+                    "status": {
+                        "type": "string"
+                    },
+                    "publishedAt": {
+                        "type": "string",
+                        "format": "date-time"
+                    }
+                }
+            },
+            "ApiResponseAdminGameResDto": {
+                "type": "object",
+                "properties": {
+                    "status": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "code": {
+                        "type": "string"
+                    },
+                    "message": {
+                        "type": "string"
+                    },
+                    "requestId": {
+                        "type": "string"
+                    },
+                    "timestamp": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "data": {
+                        "$ref": "#/components/schemas/AdminGameResDto"
+                    }
+                }
+            },
+            "ApiResponseListSectionResponse": {
+                "type": "object",
+                "properties": {
+                    "status": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "code": {
+                        "type": "string"
+                    },
+                    "message": {
+                        "type": "string"
+                    },
+                    "requestId": {
+                        "type": "string"
+                    },
+                    "timestamp": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "data": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/SectionResponse"
+                        }
+                    }
+                }
+            },
+            "SectionItemResponse": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string"
+                    },
+                    "itemType": {
+                        "type": "string"
+                    },
+                    "itemId": {
+                        "type": "string"
+                    },
+                    "displayOrder": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "pinned": {
+                        "type": "boolean"
+                    },
+                    "score": {
+                        "type": "number"
+                    },
+                    "itemData": {}
+                }
+            },
+            "SectionResponse": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string"
+                    },
+                    "slug": {
+                        "type": "string"
+                    },
+                    "title": {
+                        "type": "string"
+                    },
+                    "sectionType": {
+                        "type": "string"
+                    },
+                    "layout": {
+                        "type": "string"
+                    },
+                    "displayOrder": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "items": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/SectionItemResponse"
+                        }
+                    }
+                }
+            },
+            "ApiResponseListPostResponse": {
+                "type": "object",
+                "properties": {
+                    "status": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "code": {
+                        "type": "string"
+                    },
+                    "message": {
+                        "type": "string"
+                    },
+                    "requestId": {
+                        "type": "string"
+                    },
+                    "timestamp": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "data": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/PostResponse"
+                        }
+                    }
+                }
+            },
+            "PostResponse": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string"
+                    },
+                    "slug": {
+                        "type": "string"
+                    },
+                    "title": {
+                        "type": "string"
+                    },
+                    "summary": {
+                        "type": "string"
+                    },
+                    "content": {
+                        "type": "string"
+                    },
+                    "thumbnailUrl": {
+                        "type": "string"
+                    },
+                    "authorName": {
+                        "type": "string"
+                    },
+                    "status": {
+                        "type": "string"
+                    },
+                    "publishedAt": {
+                        "type": "string",
+                        "format": "date-time"
+                    }
+                }
+            },
+            "ApiResponseListGameResponse": {
+                "type": "object",
+                "properties": {
+                    "status": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "code": {
+                        "type": "string"
+                    },
+                    "message": {
+                        "type": "string"
+                    },
+                    "requestId": {
+                        "type": "string"
+                    },
+                    "timestamp": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "data": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/GameResponse"
+                        }
+                    }
+                }
+            },
+            "GameResponse": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string"
+                    },
+                    "slug": {
+                        "type": "string"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "shortDesc": {
+                        "type": "string"
+                    },
+                    "longDesc": {
+                        "type": "string"
+                    },
+                    "thumbnailUrl": {
+                        "type": "string"
+                    },
+                    "coverUrl": {
+                        "type": "string"
+                    },
+                    "playUrl": {
+                        "type": "string"
+                    },
+                    "minPlayers": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "maxPlayers": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "minAge": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "avgDurationMin": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "difficulty": {
+                        "type": "string"
+                    },
+                    "status": {
+                        "type": "string"
+                    },
+                    "publishedAt": {
+                        "type": "string",
+                        "format": "date-time"
+                    }
+                }
+            },
+            "ApiResponseGameDetailResponse": {
+                "type": "object",
+                "properties": {
+                    "status": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "code": {
+                        "type": "string"
+                    },
+                    "message": {
+                        "type": "string"
+                    },
+                    "requestId": {
+                        "type": "string"
+                    },
+                    "timestamp": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "data": {
+                        "$ref": "#/components/schemas/GameDetailResponse"
+                    }
+                }
+            },
+            "CategoryResponse": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string"
+                    },
+                    "slug": {
+                        "type": "string"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "iconUrl": {
+                        "type": "string"
+                    },
+                    "type": {
+                        "type": "string"
+                    }
+                }
+            },
+            "GameDetailResponse": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string"
+                    },
+                    "slug": {
+                        "type": "string"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "shortDesc": {
+                        "type": "string"
+                    },
+                    "longDesc": {
+                        "type": "string"
+                    },
+                    "thumbnailUrl": {
+                        "type": "string"
+                    },
+                    "coverUrl": {
+                        "type": "string"
+                    },
+                    "playUrl": {
+                        "type": "string"
+                    },
+                    "minPlayers": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "maxPlayers": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "minAge": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "avgDurationMin": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "difficulty": {
+                        "type": "string"
+                    },
+                    "status": {
+                        "type": "string"
+                    },
+                    "publishedAt": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "categories": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/CategoryResponse"
+                        }
+                    },
+                    "providers": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/ProviderResponse"
+                        }
+                    }
+                }
+            },
+            "ProviderResponse": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string"
+                    },
+                    "slug": {
+                        "type": "string"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "iconUrl": {
+                        "type": "string"
+                    }
+                }
+            },
+            "ApiResponseListCategoryResponse": {
+                "type": "object",
+                "properties": {
+                    "status": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "code": {
+                        "type": "string"
+                    },
+                    "message": {
+                        "type": "string"
+                    },
+                    "requestId": {
+                        "type": "string"
+                    },
+                    "timestamp": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "data": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/CategoryResponse"
+                        }
+                    }
+                }
+            },
+            "ApiResponsePageResponseAdminGameResDto": {
+                "type": "object",
+                "properties": {
+                    "status": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "code": {
+                        "type": "string"
+                    },
+                    "message": {
+                        "type": "string"
+                    },
+                    "requestId": {
+                        "type": "string"
+                    },
+                    "timestamp": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "data": {
+                        "$ref": "#/components/schemas/PageResponseAdminGameResDto"
+                    }
+                }
+            },
+            "PageResponseAdminGameResDto": {
+                "type": "object",
+                "properties": {
+                    "pageNumber": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "pageSize": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "totalPages": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "totalElements": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "data": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/AdminGameResDto"
+                        }
+                    }
+                }
+            },
+            "ApiResponseVoid": {
+                "type": "object",
+                "properties": {
+                    "status": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "code": {
+                        "type": "string"
+                    },
+                    "message": {
+                        "type": "string"
+                    },
+                    "requestId": {
+                        "type": "string"
+                    },
+                    "timestamp": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "data": {}
+                }
+            }
+        }
+    }
+}

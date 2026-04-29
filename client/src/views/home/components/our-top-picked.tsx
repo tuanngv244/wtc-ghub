@@ -4,16 +4,28 @@ import { SectionWrapper } from "@/components/layout/SectionWrapper";
 import { BoxSlider } from "@/components/ui/box-slider";
 import { CardGameBig } from "@/components/ui/card-game-big";
 import { SVG } from "@/components/ui/svgs";
-import { ALL_GAMES } from "@/constants/mock-data";
-import { ETag } from "@/types/common";
-import { IGame } from "@/types/game";
+import { useSectionStore } from "@/stores/use-section-store";
+import type { GameResponse } from "@/types/game";
+import { ESection } from "@/types/section";
 
 export function OurTopicked() {
+  const { sections } = useSectionStore();
+
+  const section = sections.find(
+    (s) => s.slug === ESection.OUR_TOP_PICKED,
+  );
+
+  const games = (section?.items ?? []).map(
+    (item) => item.itemData as GameResponse,
+  );
+
+  if (!section) return null;
+
   return (
     <SectionWrapper id="our-top-picked">
-      <BoxSlider<IGame>
-        data={ALL_GAMES}
-        title="Our Top Picked!"
+      <BoxSlider<GameResponse>
+        data={games}
+        title={section.title}
         waitForLoading
         options={{
           perPage: 1,
@@ -35,21 +47,9 @@ export function OurTopicked() {
           return (
             <CardGameBig
               title={data.name}
-              imageUrl={data.url}
-              description={data.description}
-              tag={data.tag as ETag}
-              gameData={{
-                name: data.name,
-                url: data.url,
-                description: data.description,
-                minPlayers: 2,
-                maxPlayers: 6,
-                minTimes: data.minTimes,
-                maxTimes: data.maxTimes,
-                years: data.years,
-                types: data.types,
-                providers: data.providers,
-              }}
+              imageUrl={data.thumbnailUrl}
+              description={data.shortDesc}
+              gameData={data}
             />
           );
         }}

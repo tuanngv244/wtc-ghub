@@ -5,9 +5,10 @@ import { Button } from "@/components/ui/button";
 import { CardGameMini } from "@/components/ui/card-game-mini";
 import { ControlSlider } from "@/components/ui/control-slider";
 import { SVG } from "@/components/ui/svgs";
-import { ALL_GAMES } from "@/constants/mock-data";
 import { useGameDrawerStore } from "@/stores/use-game-drawer-store";
-import { IGame } from "@/types/game";
+import { useSectionStore } from "@/stores/use-section-store";
+import type { GameResponse } from "@/types/game";
+import { ESection } from "@/types/section";
 import { Splide, SplideTrack, SplideSlide } from "@splidejs/react-splide";
 import { Splide as SplideCore } from "@splidejs/splide";
 import { useRef, useEffect } from "react";
@@ -18,9 +19,18 @@ gsap.registerPlugin(ScrollTrigger);
 
 export function NextFavoriteGames() {
   const { openWithGame } = useGameDrawerStore();
+  const { sections } = useSectionStore();
   const sectionRef = useRef<HTMLDivElement>(null);
 
-  const handleView = (data: IGame) => {
+  const section = sections.find(
+    (s) => s.slug === ESection.YOUR_NEXT_FAVORITE_GAMES,
+  );
+
+  const games = (section?.items ?? []).map(
+    (item) => item.itemData as GameResponse,
+  );
+
+  const handleView = (data: GameResponse) => {
     openWithGame(data);
   };
 
@@ -159,6 +169,8 @@ export function NextFavoriteGames() {
     return () => ctx.revert();
   }, []);
 
+  if (!section) return null;
+
   return (
     <SectionWrapper id="favorite-games" className="mt-3 w-full px-0">
       <div
@@ -182,7 +194,7 @@ export function NextFavoriteGames() {
         <img
           src="/images/assets/favorite-person.png"
           alt="person"
-          className="fav-person absolute z-3 hidden md:block  w-[180px] h-auto sm:w-[250px] md:w-[300px]  lg:w-[400px]  2xl:w-[450px] bottom-0 left-0"
+          className="fav-person absolute z-3 hidden md:block  w-45 h-auto sm:w-62.5 md:w-75  lg:w-100  2xl:w-112.5 bottom-0 left-0"
         />
 
         <div className="absolute z-1 bottom-0 left-0 w-full bg-[#CEE1FF]   h-[calc(100%-60px)] md:h-[calc(100%-140px)]"></div>
@@ -193,7 +205,7 @@ export function NextFavoriteGames() {
             Your next{" "}
             <span className="text-(--color-camelia-500)">favorite</span> games
           </h3>
-          <p className="fav-subtitle mt-1.5 text-[18px] leading-5.5 font-pangram font-medium text-grey-500">
+          <p className="fav-subtitle mt-1.5 text-lg leading-5.5 font-pangram font-medium text-grey-500">
             We pick the game base on your interest
           </p>
         </div>
@@ -228,7 +240,7 @@ export function NextFavoriteGames() {
                 <Button
                   variant="tertiary"
                   shape="circle"
-                  onClick={() => handleView(ALL_GAMES[0])}
+                  onClick={() => handleView(games[0])}
                 >
                   <SVG.Eye />
                 </Button>
@@ -244,7 +256,7 @@ export function NextFavoriteGames() {
           </div>
 
           {/* slider */}
-          <FavoriteSlider data={ALL_GAMES} />
+          <FavoriteSlider data={games} />
         </div>
 
         {/* cloud bottom */}
@@ -258,7 +270,7 @@ export function NextFavoriteGames() {
   );
 }
 
-const FavoriteSlider = ({ data }: { data: IGame[] }) => {
+const FavoriteSlider = ({ data }: { data: GameResponse[] }) => {
   const splideRef = useRef<SplideCore | null>(null);
 
   const onPrev = () => {
@@ -269,7 +281,7 @@ const FavoriteSlider = ({ data }: { data: IGame[] }) => {
   };
 
   return (
-    <div className="fav-slider relative p-4 sm:p-6 pb-8 sm:pb-12 bg-white border w-full border-solid border-[#8AB5FE] rounded-[24px] sm:rounded-[48px] drop-shadow-[8px_4px_0_#8AB5FE]">
+    <div className="fav-slider relative p-4 sm:p-6 pb-8 sm:pb-12 bg-white border w-full border-solid border-[#8AB5FE] rounded-3xl sm:rounded-[48px] drop-shadow-[8px_4px_0_#8AB5FE]">
       <Splide
         hasTrack={false}
         ref={splideRef}
@@ -304,19 +316,8 @@ const FavoriteSlider = ({ data }: { data: IGame[] }) => {
               <div className="flex flex-col gap-2">
                 <CardGameMini
                   isCardTitleOutside
-                  imageUrl={item.url}
-                  gameData={{
-                    name: item.name,
-                    url: item.url,
-                    description: item.description,
-                    minPlayers: item.minPlayers,
-                    maxPlayers: item.maxPlayers,
-                    minTimes: item.minTimes,
-                    maxTimes: item.maxTimes,
-                    years: item.years,
-                    types: item.types,
-                    providers: item.providers,
-                  }}
+                  imageUrl={item.thumbnailUrl}
+                  gameData={item}
                 />
                 <h5 className="text-sm leading-4.5 text-grey-900 font-pangram font-bold line-clamp-1">
                   {item.name}

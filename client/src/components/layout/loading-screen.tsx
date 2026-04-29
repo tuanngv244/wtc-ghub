@@ -24,7 +24,7 @@ export function LoadingScreen() {
   const containerRef = useRef<HTMLDivElement>(null);
   const [isDone, setIsDone] = useState(false);
   const [animationData, setAnimationData] = useState<object | null>(null);
-  const setLoadingDone = useUIStore((s) => s.setLoadingDone);
+  const setAnimationDone = useUIStore((s) => s.setAnimationDone);
 
   useEffect(() => {
     /* ── Load Lottie JSON at runtime (no extension file) ── */
@@ -34,7 +34,7 @@ export function LoadingScreen() {
       .catch(() => {
         /* If lottie fails to load, trigger exit immediately */
         setIsDone(true);
-        setLoadingDone();
+        setAnimationDone();
       });
 
     /* ── Load page transition svgs ── */
@@ -109,7 +109,7 @@ export function LoadingScreen() {
         const totalDuration = exitTl.duration();
         exitTl.call(
           () => {
-            setLoadingDone();
+            setAnimationDone();
           },
           undefined,
           totalDuration - 0.7,

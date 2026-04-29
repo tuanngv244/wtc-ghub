@@ -1,19 +1,19 @@
 import Image from "next/image";
 import { cn } from "@/lib/utils";
 import { SVG } from "../svgs";
-import type { IGame } from "@/types/game";
+import type { GameResponse } from "@/types/game";
 import type { RefObject } from "react";
 import { Chip } from "../chip";
 
 interface SearchPanelProps {
   ref?: RefObject<HTMLDivElement | null>;
   open: boolean;
-  data: IGame[];
+  data: GameResponse[];
   isLoading?: boolean;
   searchTerm: string;
   showRecent?: boolean;
   recentSearches?: string[];
-  onChoose: (data: IGame) => void;
+  onChoose: (data: GameResponse) => void;
   onRecentClick?: (term: string) => void;
   onClearRecent?: () => void;
 }
@@ -114,7 +114,7 @@ const SearchPanel = ({
                 >
                   <div className="p-1 bg-white rounded-2xl min-w-13 w-13 h-13 border border-solid border-black">
                     <img
-                      src={game.url}
+                      src={game.thumbnailUrl}
                       alt={game.name}
                       className="h-full w-full shrink-0 rounded-xl object-center border border-solid border-black"
                     />
@@ -124,7 +124,7 @@ const SearchPanel = ({
                       {game.name}
                     </span>
                     <span className="truncate text-xs font-medium text-grey-500 font-pangram">
-                      {game.types.join(" · ")}
+                      {game.difficulty}
                     </span>
                   </div>
                 </button>

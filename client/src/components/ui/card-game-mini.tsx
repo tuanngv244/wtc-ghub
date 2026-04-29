@@ -41,8 +41,7 @@ export interface CardGameMiniProps {
   className?: string;
   onView?: VoidFunction;
   onGame?: VoidFunction;
-  /** Full game data for drawer preview */
-  gameData?: import("@/types/game").IGame;
+  gameData?: import("@/types/game").GameResponse;
 
   // Special version //
   isCardTitleOutside?: boolean;

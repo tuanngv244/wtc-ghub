@@ -4,40 +4,19 @@ import { cn } from "@/lib/utils";
 import { Icon } from "@iconify/react";
 import { Button } from "./button";
 import { SVG } from "./svgs";
-import { ETag } from "@/types/common";
 import { useGameDrawerStore } from "@/stores/use-game-drawer-store";
-
-/* =================================================================
-   OurTopicCard — Blog/Guide card from Figma (Card Blog component)
-
-   Design anatomy (from screenshot):
-   ┌─────────────────────────────────┐
-   │  ┌───────────────────────────┐  │
-   │  │ [Image]          [Tag]    │  │  ← rounded image with tag overlay
-   │  └───────────────────────────┘  │
-   │  ╔╝╔╝╔╝╔╝╔╝╔╝╔╝╔╝            │  ← spiral binder decorations
-   │  ┌───────────────────────────┐  │
-   │  │ Title text                │  │
-   │  │ ┌─────────────────────┐   │  │
-   │  │ │ DIVE IN         →   │   │  │  ← CTA button
-   │  │ └─────────────────────┘   │  │
-   │  └───────────────────────────┘  │
-   └─────────────────────────────────┘
-
-   Hover: Button icon changes from ··· to →
-   ================================================================= */
+import type { GameResponse } from "@/types/game";
 
 export interface CardGameBigProps {
   title: string;
   description?: string;
   imageUrl?: string;
-  tag?: ETag | "hot" | "new" | "we-loved";
+  tag?: "hot" | "new" | "we-loved";
   className?: string;
   countPlayer?: string;
   onView?: VoidFunction;
   onGame?: VoidFunction;
-  /** Full game data for drawer preview */
-  gameData?: import("@/types/game").IGame;
+  gameData?: GameResponse;
 }
 
 export function CardGameBig({

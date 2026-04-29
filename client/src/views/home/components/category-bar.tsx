@@ -3,64 +3,27 @@
 import { SectionWrapper } from "@/components/layout/SectionWrapper";
 import { CategoriesSVG, SVG } from "@/components/ui/svgs";
 import { cn } from "@/lib/utils";
+import { useCategoryStore } from "@/stores/use-category-store";
 import { useCallback, useLayoutEffect, useRef, useState } from "react";
 import gsap from "gsap";
 
-const categories = [
-  {
-    label: "All Games",
-    icon: CategoriesSVG.All,
-    id: 1,
-  },
-  {
-    label: "Actions",
-    icon: CategoriesSVG.Action,
-    id: 2,
-  },
-  {
-    label: "Party",
-    icon: CategoriesSVG.Party,
-    id: 3,
-  },
-  {
-    label: "Family",
-    icon: CategoriesSVG.Family,
-    id: 4,
-  },
-  {
-    label: "Strategy",
-    icon: CategoriesSVG.Strategy,
-    id: 5,
-  },
-  {
-    label: "Co-op",
-    icon: CategoriesSVG.Coop,
-    id: 6,
-  },
-  {
-    label: "Puzzle",
-    icon: CategoriesSVG.Puzzle,
-    id: 7,
-  },
-  {
-    label: "Solo",
-    icon: CategoriesSVG.Solo,
-    id: 8,
-  },
-  {
-    label: "Boardgame",
-    icon: CategoriesSVG.Boardgame,
-    id: 9,
-  },
-  {
-    label: "Others",
-    icon: CategoriesSVG.Other,
-    id: 10,
-  },
-];
+const CATEGORY_ICON_MAP: Record<
+  string,
+  React.ComponentType<{ className?: string }>
+> = {
+  action: CategoriesSVG.Action,
+  party: CategoriesSVG.Party,
+  family: CategoriesSVG.Family,
+  strategy: CategoriesSVG.Strategy,
+  "co-op": CategoriesSVG.Coop,
+  puzzle: CategoriesSVG.Puzzle,
+  solo: CategoriesSVG.Solo,
+  boardgame: CategoriesSVG.Boardgame,
+};
 
 export function CategoryBar() {
-  const [actCate, setActCate] = useState<number | null>(null);
+  const [actCate, setActCate] = useState<string | null>(null);
+  const { categories } = useCategoryStore();
   const scrollRef = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -118,7 +81,7 @@ export function CategoryBar() {
           alt="handheld left"
           onClick={() => scrollBy("left")}
           className={cn(
-            "w-[38px] h-[56px] duration-200 transition-[filter] cursor-pointer drop-shadow-[1px_2px_0_var(--color-grey-900)]",
+            "w-9.5 h-14 duration-200 transition-[filter] cursor-pointer drop-shadow-[1px_2px_0_var(--color-grey-900)]",
             "active:drop-shadow-[0_0_0_var(--color-grey-900)]",
           )}
         />
@@ -127,7 +90,7 @@ export function CategoryBar() {
           className={cn(
             "category-list flex flex-1 items-center justify-between relative overflow-hidden",
             "rounded-xs border border-solid border-black border-b-2 w-full",
-            "overflow-x-auto overflow-y-hidden h-[56px] bg-[#F7FBFC]",
+            "overflow-x-auto overflow-y-hidden h-14 bg-[#F7FBFC]",
             "scrollbar-hide",
           )}
         >
@@ -135,56 +98,101 @@ export function CategoryBar() {
           <img
             src="/images/assets/cate-left-patern.png"
             alt="Left patern"
-            className="absolute bottom-0 left-0 w-[172px]"
+            className="absolute bottom-0 left-0 w-43"
           />
           <img
             src="/images/assets/cate-right-patern.png"
             alt="Left patern"
-            className="absolute right-0 top-0 w-[172px]"
+            className="absolute right-0 top-0 w-43"
           />
+          {/* All Games */}
+          <div
+            data-cate-id="all"
+            className={cn(
+              "flex flex-1 items-center justify-center relative gap-1.5 cursor-pointer group py-4.5 px-3",
+            )}
+            onClick={() => setActCate(null)}
+          >
+            <img
+              src="/images/assets/blue-vertical-line.png"
+              alt="Blue Line"
+              className="absolute -right-2 top-1/2 -translate-y-1/2 w-3.75 h-full"
+            />
+            <CategoriesSVG.All
+              className={cn(
+                "duration-200 transition-transform",
+                "group-hover:-rotate-12",
+              )}
+            />
+            <p
+              className={cn(
+                "text-base leading-5 whitespace-nowrap font-bold text-grey-900 relative",
+                "duration-200 transition-transform",
+                "group-hover:-rotate-8",
+              )}
+            >
+              All Games
+              <SVG.BottomLine
+                className={cn(
+                  "bottom-line-svg absolute -bottom-0.5 left-1/2 -translate-x-1/2",
+                  "duration-300 transition-opacity",
+                  actCate === null
+                    ? "opacity-100 visible"
+                    : "opacity-0 invisible",
+                )}
+              />
+              <SVG.Union
+                className={cn(
+                  "absolute -right-2 top-0 opacity-0 invisible",
+                  "duration-300 transition-[transform,opacity,visibility] -translate-x-8",
+                  "group-hover:translate-x-2 group-hover:opacity-100 group-hover:visible",
+                )}
+              />
+            </p>
+          </div>
           {categories.map((category, index) => {
-            const Icon = category.icon;
+            const Icon =
+              CATEGORY_ICON_MAP[category.slug] ?? CategoriesSVG.Other;
             const cateIndex = index + 1;
             return (
               <div
                 data-cate-id={category.id}
                 className={cn(
                   "flex flex-1 items-center justify-center relative gap-1.5 cursor-pointer group py-4.5 px-3",
-                  actCate === category.id ? "" : "",
                 )}
                 onClick={() => setActCate(category.id)}
-                key={index}
+                key={category.id}
               >
                 {/* line */}
                 {cateIndex % 2 == 0 && cateIndex !== categories.length && (
                   <img
                     src="/images/assets/red-vertical-line.png"
                     alt="Red Line"
-                    className="absolute -right-2 top-1/2 -translate-y-1/2 w-[15px] h-full"
+                    className="absolute -right-2 top-1/2 -translate-y-1/2 w-3.75 h-full"
                   />
                 )}
                 {cateIndex % 2 != 0 && (
                   <img
                     src="/images/assets/blue-vertical-line.png"
                     alt="Blue Line"
-                    className="absolute -right-2 top-1/2 -translate-y-1/2 w-[15px] h-full"
+                    className="absolute -right-2 top-1/2 -translate-y-1/2 w-3.75 h-full"
                   />
                 )}
 
                 <Icon
                   className={cn(
                     "duration-200 transition-transform",
-                    "group-hover:rotate-[-12deg]",
+                    "group-hover:-rotate-12",
                   )}
                 />
                 <p
                   className={cn(
                     "text-base leading-5 whitespace-nowrap font-bold text-grey-900 relative",
                     "duration-200 transition-transform",
-                    "group-hover:rotate-[-8deg]",
+                    "group-hover:-rotate-8",
                   )}
                 >
-                  {category.label}
+                  {category.name}
                   <SVG.BottomLine
                     className={cn(
                       "bottom-line-svg absolute -bottom-0.5 left-1/2 -translate-x-1/2",
@@ -211,7 +219,7 @@ export function CategoryBar() {
           alt="handheld right"
           onClick={() => scrollBy("right")}
           className={cn(
-            "w-[38px] h-[56px] duration-200 transition-[filter] cursor-pointer drop-shadow-[1px_2px_0_var(--color-grey-900)]",
+            "w-9.5 h-14 duration-200 transition-[filter] cursor-pointer drop-shadow-[1px_2px_0_var(--color-grey-900)]",
             "active:drop-shadow-[0_0_0_var(--color-grey-900)]",
           )}
         />

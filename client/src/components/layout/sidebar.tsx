@@ -334,7 +334,7 @@ function SidebarLogo({ isExpanded }: { isExpanded: boolean }) {
   return (
     <div
       ref={logoRef}
-      className="sidebar-logo flex items-center justify-center px-3 pb-4 pt-5 h-[92px]"
+      className="sidebar-logo flex items-center justify-center px-3 pb-4 pt-5 h-23"
     >
       <div className="relative w-full h-15 flex items-center justify-center">
         {/* Expanded logo — fades in/out, no layout shift */}
@@ -488,7 +488,7 @@ export function Sidebar() {
       {/* ─── Mobile Drawer ─── */}
       <aside
         className={cn(
-          "fixed inset-y-0 left-0 z-50 flex w-[270px] flex-col bg-grey-900 transition-transform duration-300 ease-in-out md:hidden",
+          "fixed inset-y-0 left-0 z-50 flex w-67.5 flex-col bg-grey-900 transition-transform duration-300 ease-in-out md:hidden",
           isMobileOpen ? "translate-x-0" : "-translate-x-full",
         )}
       >

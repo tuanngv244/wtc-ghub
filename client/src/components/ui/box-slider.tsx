@@ -56,7 +56,7 @@ export function BoxSlider<T>({
     gap: "1.5rem",
     perPage: 6,
     perMove: 1,
-    type: "loop",
+    type: "slide",
     arrows: false,
     pagination: false,
     autoHeight: true,
@@ -110,9 +110,7 @@ export function BoxSlider<T>({
       const realSlides = container.querySelectorAll(
         ".splide__slide:not(.splide__slide--clone)",
       );
-      const cloneSlides = container.querySelectorAll(
-        ".splide__slide--clone",
-      );
+      const cloneSlides = container.querySelectorAll(".splide__slide--clone");
       if (!realSlides.length) return;
 
       /* Real slides start offset to the right; clones just hidden */

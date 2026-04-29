@@ -7,8 +7,6 @@ import { SVG } from "./svgs";
 import { useGameDrawerStore } from "@/stores/use-game-drawer-store";
 import { Chip } from "./chip";
 import { Button } from "./button";
-import { Splide, SplideTrack, SplideSlide } from "@splidejs/react-splide";
-import { Splide as SplideCore } from "@splidejs/splide";
 
 /* =================================================================
    GameDrawer — Right-side panel showing game details.
@@ -23,29 +21,22 @@ export interface GameDrawerProps {}
 export function GameDrawer({}: GameDrawerProps) {
   const { isOpen, data, close } = useGameDrawerStore();
   const {
-    url,
+    thumbnailUrl,
     name,
-    description,
-    providers,
-    years,
+    shortDesc,
+    minAge,
     maxPlayers,
-    maxTimes,
+    avgDurationMin,
     minPlayers,
-    minTimes,
-    types,
+    difficulty,
   } = data || {};
 
-  const splideRef = useRef<SplideCore | null>(null);
   const drawerRef = useRef<HTMLDivElement>(null);
   const overlayRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
   const timelineRef = useRef<gsap.core.Timeline | null>(null);
   const [isVisible, setIsVisible] = useState(false);
   const [readMore, setReadMore] = useState(false);
-
-  const [actProvider, setActProvider] = useState<number | null>(
-    providers?.[0].id || null,
-  );
 
   const onGame = () => {};
 
@@ -148,7 +139,6 @@ export function GameDrawer({}: GameDrawerProps) {
   useEffect(() => {
     if (isOpen) {
       animateOpen();
-      setActProvider(providers?.[0]?.id || null);
     } else if (isVisible) {
       animateClose();
     } else {
@@ -226,7 +216,7 @@ export function GameDrawer({}: GameDrawerProps) {
           <div className="drawer-section p-3 flex flex-col">
             <div className="overflow-hidden border border-solid border-(--color-grey-900) rounded-[18px]">
               <img
-                src={url}
+                src={thumbnailUrl}
                 alt={name}
                 className="w-full h-full object-cover"
               />
@@ -238,11 +228,9 @@ export function GameDrawer({}: GameDrawerProps) {
             <h4 className="font-pangram text-2xl leading-7 text-grey-900 font-bold">
               {name}
             </h4>
-            {types && !!types?.length && (
+            {difficulty && (
               <div className="flex items-center gap-2">
-                {types.map((type, index) => (
-                  <Chip key={index}>{type}</Chip>
-                ))}
+                <Chip>{difficulty}</Chip>
               </div>
             )}
             <p
@@ -251,7 +239,7 @@ export function GameDrawer({}: GameDrawerProps) {
                 readMore ? "line-clamp-none overflow-y-auto h-32" : "",
               )}
             >
-              {description}
+              {shortDesc}
             </p>
             <p
               className="cursor-pointer text-xs font-pangram leading-3 text-grey-800 font-semibold text-right underline transition-all duration-150"
@@ -261,118 +249,6 @@ export function GameDrawer({}: GameDrawerProps) {
             >
               Read more
             </p>
-          </div>
-
-          {/* providers */}
-          <div className="drawer-section flex flex-col gap-4 px-6 my-9 provider-game-slider">
-            <h6 className="relative text-base leading-5 text-grey-900 font-semibold">
-              Providers
-              <SVG.BottomLine className="absolute -bottom-1 left-0" />
-            </h6>
-            {providers && providers?.length > 0 && (
-              <Splide
-                hasTrack={false}
-                ref={splideRef}
-                options={{
-                  type: "loop",
-                  perPage: 3,
-                  perMove: 1,
-                  gap: "0.5rem",
-                  arrows: false,
-                  pagination: false,
-                }}
-              >
-                <SplideTrack>
-                  {providers?.map((provider, index) => {
-                    const active = actProvider === provider.id;
-                    return (
-                      <SplideSlide key={index}>
-                        <div
-                          onClick={() => setActProvider(provider.id)}
-                          className={cn(
-                            "provider-card group relative bg-[#b5d0ff] cursor-pointer",
-                            active ? "border border-solid border-grey-800" : "", //opacity-35
-                            "rounded-[10px] p-1 h-16",
-                            "duration-200 transition-all",
-                            "hover:opacity-100",
-                            active ? "opacity-100" : "opacity-55",
-                          )}
-                        >
-                          <img
-                            src="/images/assets/provider-frame.jpg"
-                            alt="Provider frame"
-                            className={cn(
-                              "absolute w-full h-full top-0 left-0 z-4 rounded-[10px]",
-                              "duration-200 transition-all",
-                              active ? "opacity-0 invisible" : "",
-                            )}
-                          />
-
-                          {/* tick */}
-                          <SVG.Tick
-                            className={cn(
-                              "absolute z-5 -top-2.25 -right-2.25 invisible opacity-0 transition-all duration-200",
-                              active ? "visible opacity-100" : "",
-                            )}
-                          />
-                          {/* tick */}
-                          <SVG.Attach
-                            className={cn(
-                              "absolute z-5 -top-3.75 right-1/2 invisible opacity-0 transition-all duration-200",
-                              !active ? "visible opacity-100" : "",
-                            )}
-                          />
-
-                          {/* providers */}
-                          <div
-                            className={cn(
-                              "absolute  z-4 top-1/2 left-1/2 -translate-y-10.5 -translate-x-5 rotate-10 scale-[0.6] perspective-near rounded-md ",
-
-                              "transition-all duration-400",
-                              "border border-solid border-grey-800",
-                              "aspect-98/56 overflow-hidden",
-                              !active
-                                ? "group-hover:rotate-0 group-hover:scale-100 group-hover:top-1/2 group-hover:left-1/2 group-hover:-translate-1/2"
-                                : "",
-                              active
-                                ? "rotate-0 scale-100 -translate-1/2  w-[calc(100%-4px)] h-[calc(100%-4px)]"
-                                : "w-[calc(100%-8px)] h-[calc(100%-8px)]",
-                            )}
-                          >
-                            <img
-                              alt={provider.name}
-                              src={provider.url}
-                              className={cn(
-                                "w-full h-full object-cover object-top bg-white  ",
-                              )}
-                            />
-                          </div>
-
-                          {/* count frame */}
-                          <div className="absolute z-7 bottom-0 left-0">
-                            <div className="relative w-9.75 h-7">
-                              <SVG.CountFrame
-                                className={cn(
-                                  "absolute z-1 top-0 w-full h-full",
-                                  provider.rank === 1 ? "left-0" : "left-0.5",
-                                )}
-                              />
-                              <span
-                                className={cn(`
-                              absolute top-1/2 left-1/2 -translate-1/2 z-2 text-grey-800 font-pangram text-xl italic font-black leading-3.75 [leading-trim:both] [text-edge:cap] font-features-['liga'_off,'clig'_off]
-                              `)}
-                              >
-                                #1
-                              </span>
-                            </div>
-                          </div>
-                        </div>
-                      </SplideSlide>
-                    );
-                  })}
-                </SplideTrack>
-              </Splide>
-            )}
           </div>
 
           {/* general info */}
@@ -392,18 +268,18 @@ export function GameDrawer({}: GameDrawerProps) {
               <div className="flex items-center gap-1.5">
                 <SVG.Subtract size={12} />
                 <span className="text-base leading-4 text-grey-800 font-bold font-pangram">
-                  {minTimes}-{maxTimes}
+                  {avgDurationMin} min
                 </span>
               </div>
               <p className="font-pangram text-xs leading-3 text-grey-500 font-semibold">
-                Minutes
+                Duration
               </p>
             </div>
             <div className="flex flex-1 flex-col items-center justify-center gap-2">
               <div className="flex items-center gap-1.5">
                 <SVG.Medal size={12} />
                 <span className="text-base leading-4 text-grey-800 font-bold font-pangram">
-                  {years}+
+                  {minAge}+
                 </span>
               </div>
               <p className="font-pangram text-xs leading-3 text-grey-500 font-semibold">

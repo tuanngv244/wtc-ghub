@@ -1,14 +1,31 @@
 import { create } from "zustand";
 
 interface UIState {
-  /** Whether the initial loading screen has finished */
+  /** True only when BOTH animation and data fetching are complete */
   isLoadingDone: boolean;
 
-  /** Mark loading as complete — triggers home page animations */
-  setLoadingDone: () => void;
+  _animationDone: boolean;
+  _dataReady: boolean;
+
+  /** Mark loading animation as complete */
+  setAnimationDone: () => void;
+
+  /** Mark data fetching as complete */
+  setDataReady: () => void;
 }
 
-export const useUIStore = create<UIState>()((set) => ({
+export const useUIStore = create<UIState>()((set, get) => ({
   isLoadingDone: false,
-  setLoadingDone: () => set({ isLoadingDone: true }),
+  _animationDone: false,
+  _dataReady: false,
+
+  setAnimationDone: () => {
+    set({ _animationDone: true });
+    if (get()._dataReady) set({ isLoadingDone: true });
+  },
+
+  setDataReady: () => {
+    set({ _dataReady: true });
+    if (get()._animationDone) set({ isLoadingDone: true });
+  },
 }));

@@ -11,7 +11,7 @@ import { useDebounce } from "@/hooks/useDebounce";
 import SearchPanel from "./search-panel";
 import gsap from "gsap";
 import { useGameDrawerStore } from "@/stores/use-game-drawer-store";
-import { IGame } from "@/types/game";
+import type { GameResponse } from "@/types/game";
 
 /* =================================================================
    Constants
@@ -132,7 +132,7 @@ const Search = ({}: SearchProps) => {
     setSrchVal("");
   };
 
-  const onChoose = useCallback((data: IGame) => {
+  const onChoose = useCallback((data: GameResponse) => {
     addRecentSearch(data.name);
     setRecentVersion((v) => v + 1);
     openWithGame(data);

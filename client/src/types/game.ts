@@ -1,20 +1,44 @@
-import { ETag } from "./common";
-
-export interface IGame {
+export interface GameResponse {
+  id: string;
+  slug: string;
   name: string;
-  url: string;
+  shortDesc: string;
+  longDesc: string;
+  thumbnailUrl: string;
+  coverUrl: string;
+  playUrl: string;
   minPlayers: number;
   maxPlayers: number;
-  minTimes: number;
-  maxTimes: number;
-  years: number;
-  types: string[];
-  description: string;
-  tag?: ETag;
-  providers: {
-    name: string;
-    url: string;
-    rank?: number;
-    id: number;
-  }[];
+  minAge: number;
+  avgDurationMin: number;
+  difficulty: string;
+  status: string;
+  publishedAt: string;
+}
+
+export interface GameDetailResponse extends GameResponse {
+  categories: CategoryResponse[];
+  providers: ProviderResponse[];
+}
+
+export interface CategoryResponse {
+  id: string;
+  slug: string;
+  name: string;
+  iconUrl: string;
+  type: string;
+}
+
+export interface ProviderResponse {
+  id: string;
+  slug: string;
+  name: string;
+  iconUrl: string;
+}
+
+/** Query params for GET /api/v1/games */
+export interface GameSearchParams {
+  categorySlug?: string;
+  search?: string;
+  slug?: string;
 }
